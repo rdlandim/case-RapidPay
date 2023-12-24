@@ -1,6 +1,6 @@
 ﻿using DAL.RapidPay.Entities;
 
-namespace DAL.RapidPay.DTO
+namespace DAL.RapidPay.DTO.Users
 {
     public class UserDTO
     {

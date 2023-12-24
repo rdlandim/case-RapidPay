@@ -6,4 +6,8 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DAL.RapidPay\DAL.RapidPay.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DAL.RapidPay.DTO;
+using DAL.RapidPay.DTO.CreditCards;
 using DAL.RapidPay.Entities;
 
 namespace Core.RapidPay.Automapper

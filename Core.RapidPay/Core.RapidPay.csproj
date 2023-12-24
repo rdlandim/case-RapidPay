@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DAL.RapidPay\DAL.RapidPay.csproj" />
     <ProjectReference Include="..\Interfaces.RapidPay\Interfaces.RapidPay.csproj" />
+    <ProjectReference Include="..\Shared.RapidPay\Shared.RapidPay.csproj" />
   </ItemGroup>
 
 </Project>
