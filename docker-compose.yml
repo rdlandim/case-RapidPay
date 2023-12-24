@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+    api.rapidpay:
+        build:
+            context: .
+            dockerfile: API.RapidPay/Dockerfile
+
+    sqlserver:
+        image: "mcr.microsoft.com/mssql/server:2022-latest"
+        container_name: sql_server
+        ports: 
+            - 1433:1433 
+        environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=c@s3R@p1dP4Y
+            - MSSQL_PID=Developer

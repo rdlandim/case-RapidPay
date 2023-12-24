@@ -6,4 +6,13 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DAL.RapidPay\DAL.RapidPay.csproj" />
+    <ProjectReference Include="..\Interfaces.RapidPay\Interfaces.RapidPay.csproj" />
+  </ItemGroup>
+
 </Project>
