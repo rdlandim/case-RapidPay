@@ -1,14 +1,22 @@
-using Core.RapidPay.Automapper;
+using API.RapidPay.Swagger;
+using Core.RapidPay.Automapper.Profiles.UserProfiles;
+using Core.RapidPay.Handlers;
 using Core.RapidPay.Options;
+using Core.RapidPay.Services.CreditCards;
 using Core.RapidPay.Services.Identity;
+using Core.RapidPay.Services.UFE;
 using DAL.RapidPay.Context;
+using Interfaces.RapidPay.CreditCards;
 using Interfaces.RapidPay.Identity;
+using Interfaces.RapidPay.UFE;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using Shared.RapidPay.Extensions;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,14 +54,25 @@ builder.Services.AddAuthentication(x =>
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddDbContext<RapidPayContext>(
-    options =>
-    options.UseSqlServer(
-            Configuration.GetConnectionString("Default"),
-            x => x.MigrationsAssembly("Migrations.RapidPay")));
+builder.Services.AddDbContext<RapidPayContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default"), x => x.MigrationsAssembly("Migrations.RapidPay")));
 
 builder.Services.AddAutoMapper(typeof(UserMapperProfile).Assembly);
+
+builder.Services.AddSingleton<IUFEService, UFEService>();
+
 builder.Services.AddTransient<IIdentityService, IdentityService>();
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+builder.Services.AddTransient<ICreditCardCreationService, CreditCardCreationService>();
+builder.Services.AddTransient<ICreditCardValidationService, CreditCardValidationService>();
+builder.Services.AddTransient<ICreditCardService, CreditCardService>();
+//builder.Services.AddTransient<IPaymentHandler, PaymentHandlerBase>();
+builder.Services.Chain<IPaymentHandler>()
+    .Add<CreditCardOwnerValidatorHandler>()
+    .Add<CreditCardNumberValidatorHandler>()
+    .Add<CreditCardExpiryDateValidatorHandler>()
+    .Add<CreditCardCVCValidatorHandler>()
+    .Add<CreditCardPaymentHandler>()
+    .Configure();
 
 var app = builder.Build();
 
@@ -70,11 +89,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapControllers();
-
 app.UseAuthentication();
+app.UseRouting();
 app.UseAuthorization();
 
-app.UseRouting();
+app.MapControllers();
 
 app.Run();

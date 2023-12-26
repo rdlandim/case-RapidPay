@@ -5,5 +5,6 @@ namespace Interfaces.RapidPay.Identity
     public interface IIdentityService
     {
         TokenResponse GenerateJwtToken(TokenRequest request);
+        UserResponse CreateUser(CreateUserRequest request);
     }
 }

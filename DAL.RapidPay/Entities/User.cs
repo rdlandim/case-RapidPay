@@ -1,4 +1,7 @@
-﻿namespace DAL.RapidPay.Entities
+﻿using DAL.RapidPay.Context;
+using Microsoft.EntityFrameworkCore;
+
+namespace DAL.RapidPay.Entities
 {
     public class User
     {
@@ -13,5 +16,10 @@
         public string Password { get; set; }
 
         public ICollection<CreditCard> CreditCards { get; set; }
+
+        public bool IsCreditCardOwner(string creditCardNumber)
+        {
+            return CreditCards.Any(cc => cc.Number == creditCardNumber);
+        }
     }
 }
