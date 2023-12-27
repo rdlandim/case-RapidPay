@@ -5,8 +5,13 @@ services:
         build:
             context: .
             dockerfile: API.RapidPay/Dockerfile
+        depends_on:
+            sql_server:
+                condition: service_started
+                restart: true
+        restart: always
 
-    sqlserver:
+    sql_server:
         image: "mcr.microsoft.com/mssql/server:2022-latest"
         container_name: sql_server
         ports: 
