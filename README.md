@@ -18,7 +18,7 @@ cd <project-folder>
 docker compose up
 ```
 
-The application will be running on 
+The application will be running on https://localhost:8001/swagger/index.html
 
 ## ⚙️ Testing
 
