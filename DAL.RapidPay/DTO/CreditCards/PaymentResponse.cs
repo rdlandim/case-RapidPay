@@ -2,9 +2,9 @@
 {
     public class PaymentResponse
     {
-        public string GUID { get; set; }
-        public bool Success { get; set; }
-        public string Message { get; set; }
-        public CreditCardBalanceResponse Balance { get; set; }
+        public virtual string GUID { get; set; }
+        public virtual bool Success { get; set; }
+        public virtual string Message { get; set; }
+        public virtual CreditCardBalanceResponse Balance { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class CreditCardBalanceResponse
     {
-        public decimal PreviousBalance { get; set; }
-        public decimal Balance { get; set; }
+        public virtual decimal PreviousBalance { get; set; }
+        public virtual decimal Balance { get; set; }
     }
 }

@@ -2,10 +2,10 @@
 {
     public class CreateCreditCardResponse
     {
-        public int Id { get; set; }
-        public string Number { get; set; }
-        public int CVC { get; set; }
-        public string ValidUntil { get; set; }
-        public decimal Balance { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Number { get; set; }
+        public virtual int CVC { get; set; }
+        public virtual string ValidUntil { get; set; }
+        public virtual decimal Balance { get; set; }
     }
 }

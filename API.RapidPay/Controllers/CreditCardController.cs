@@ -20,6 +20,11 @@ namespace API.RapidPay.Controllers
             _paymentHandler = paymentHandler;
         }
 
+        /// <summary>
+        /// Endpoint used to retrieve the balance of the provided Credit Card
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         [HttpGet("balance/{Id}")]
         public IActionResult GetBalance([FromRoute] CreditCardBalanceRequest request)
         {
@@ -35,6 +40,11 @@ namespace API.RapidPay.Controllers
             }
         }
 
+        /// <summary>
+        /// Endpoint used to create a Credit Card for the provided UserID
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult CreateCard([FromBody] CreateCreditCardRequest request)
         {
@@ -48,6 +58,11 @@ namespace API.RapidPay.Controllers
             }
         }
 
+        /// <summary>
+        /// Endpoint used to make payments using the provided information
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost("payment")]
         public IActionResult Pay([FromBody] CreditCardPaymentRequest request)
         {

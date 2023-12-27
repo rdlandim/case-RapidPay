@@ -17,6 +17,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.RapidPay", "Shared.RapidPay\Shared.RapidPay.csproj", "{780C5F89-A51A-448C-BB61-0E0855B300AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.RapidPay", "Tests.RapidPay\Tests.RapidPay.csproj", "{E0715A27-2CC1-4F49-B0B1-4C251FDBD8EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{780C5F89-A51A-448C-BB61-0E0855B300AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{780C5F89-A51A-448C-BB61-0E0855B300AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{780C5F89-A51A-448C-BB61-0E0855B300AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0715A27-2CC1-4F49-B0B1-4C251FDBD8EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0715A27-2CC1-4F49-B0B1-4C251FDBD8EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0715A27-2CC1-4F49-B0B1-4C251FDBD8EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0715A27-2CC1-4F49-B0B1-4C251FDBD8EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
