@@ -1,4 +1,5 @@
 ﻿using Interfaces.RapidPay.UFE;
+using Microsoft.Extensions.Caching.Memory;
 using Shared.RapidPay.Extensions;
 
 namespace Core.RapidPay.Services.UFE
@@ -6,44 +7,53 @@ namespace Core.RapidPay.Services.UFE
     public class UFEService : IUFEService
     {
         private TimeSpan _now => DateTime.Now.TimeOfDay;
-        private TimeSpan _lastFeeUpdate;
-        private decimal _fee = new(0);
+        private readonly IMemoryCache _memoryCache;
+        private readonly string _feeCacheKey = "fee";
+        private readonly string _lastUpdateCacheKey = "lastUpdate";
 
-        public UFEService()
+        public UFEService(IMemoryCache memoryCache)
         {
+            _memoryCache = memoryCache;
             CalculateNewFee();
         }
 
-        public decimal GetFee()
+        public decimal GetFee(bool forceUpdate = false)
         {
-            if (IsNextUpdate())
+            if (IsNextUpdate(forceUpdate))
                 CalculateNewFee();
 
-            return _fee;
+            return _memoryCache.Get<decimal>(_feeCacheKey);
         }
 
         private void CalculateNewFee()
         {
             var rnd = new Random();
 
-            var nextFeeDecimal = rnd.NextNonNegativeDecimal(0, 2);
+            var nextFeeDecimal = (decimal)rnd.NextDouble() * 2;
 
-            if (_fee == 0)
-                _fee = nextFeeDecimal;
+            var cachedFee = _memoryCache.GetOrCreate(_feeCacheKey, value => { return new decimal(0); });
+
+            if (cachedFee == 0)
+                _memoryCache.Set(_feeCacheKey, nextFeeDecimal);
             else
-                _fee *= nextFeeDecimal;
+                _memoryCache.Set(_feeCacheKey, cachedFee * nextFeeDecimal);
 
             UpdateLastFeeTime();
         }
 
         private void UpdateLastFeeTime()
         {
-            _lastFeeUpdate = new TimeSpan(_now.Hours, 0, 0);
+            _memoryCache.Set(_lastUpdateCacheKey, new TimeSpan(_now.Hours, 0, 0));
         }
 
-        private bool IsNextUpdate()
+        private bool IsNextUpdate(bool forceUpdate = false)
         {
-            return (_now - _lastFeeUpdate).TotalHours >= 1;
+            if (forceUpdate)
+                return true;
+
+            var lastUpdate = _memoryCache.GetOrCreate(_lastUpdateCacheKey, value => { return new TimeSpan(_now.Hours, 0, 0); });
+
+            return (_now - lastUpdate).TotalHours >= 1;
         }
     }
 }

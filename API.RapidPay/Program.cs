@@ -11,6 +11,7 @@ using Interfaces.RapidPay.Identity;
 using Interfaces.RapidPay.UFE;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Converters;
@@ -58,6 +59,7 @@ builder.Services.AddDbContext<RapidPayContext>(options => options.UseSqlServer(C
 
 builder.Services.AddAutoMapper(typeof(UserMapperProfile).Assembly);
 
+builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<IUFEService, UFEService>();
 
 builder.Services.AddTransient<IIdentityService, IdentityService>();

@@ -58,7 +58,7 @@ namespace Core.RapidPay.Services.CreditCards
             var creditCard = user.CreditCards.FirstOrDefault(cc => cc.Number == request.CreditCardNumber) ?? throw new InvalidOperationException("Credit card not found");
 
             var previousBalance = creditCard.Balance;
-            var valueWithFee = (_ufeService.GetFee() * request.Value) + request.Value;
+            var valueWithFee = (_ufeService.GetFee(request.ForceUpdateFee) * request.Value) + request.Value;
 
             creditCard.Balance += decimal.Round(valueWithFee, 2, MidpointRounding.AwayFromZero);
 

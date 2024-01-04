@@ -4,7 +4,7 @@
     {
         public CreditCard()
         {
-            
+
         }
 
         public CreditCard(int userId, string number, string validUntil, string cvc)
@@ -26,8 +26,8 @@
 
         public bool IsExpired(string expiryDate)
         {
-            var cardValidDate = new DateTime(Convert.ToInt32(ValidUntil[..4]), Convert.ToInt32(ValidUntil[6..]), 1);
-            var providedDate = new DateTime(Convert.ToInt32(expiryDate[..4]), Convert.ToInt32(expiryDate[6..]), 1);
+            var cardValidDate = new DateTime(Convert.ToInt32(ValidUntil[..4]), Convert.ToInt32(ValidUntil[5..]), 1);
+            var providedDate = new DateTime(Convert.ToInt32(expiryDate[..4]), Convert.ToInt32(expiryDate[5..]), 1);
 
             return providedDate > cardValidDate;
         }

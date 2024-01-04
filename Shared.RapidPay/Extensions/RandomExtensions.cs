@@ -2,7 +2,12 @@
 {
     public static class RandomExtensions
     {
-        public static decimal NextNonNegativeDecimal(this Random rng, int min, int max)
+        /// <summary>
+        /// Generates a pseudo-random decimal between 0 and 2
+        /// </summary>
+        /// <param name="rng"></param>
+        /// <returns></returns>
+        public static decimal NextNonNegativeDecimal(this Random rng)
         {
             byte scale = (byte)rng.Next(29);
 

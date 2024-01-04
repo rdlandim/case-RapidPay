@@ -1,7 +1,6 @@
 ﻿using DAL.RapidPay.DTO.CreditCards;
 using Interfaces.RapidPay.CreditCards;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.RapidPay.Controllers
@@ -60,6 +59,8 @@ namespace API.RapidPay.Controllers
 
         /// <summary>
         /// Endpoint used to make payments using the provided information
+        /// Has an optional parameter called ForceUpdateFee to make testing 
+        /// the UFE service easily
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>

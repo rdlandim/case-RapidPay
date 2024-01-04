@@ -2,6 +2,7 @@
 using DAL.RapidPay.DTO.Identity;
 using DAL.RapidPay.DTO.Users;
 using DAL.RapidPay.Entities;
+using Shared.RapidPay.Security;
 
 namespace Core.RapidPay.Automapper.Profiles.UserProfiles
 {
@@ -11,7 +12,8 @@ namespace Core.RapidPay.Automapper.Profiles.UserProfiles
         {
             CreateMap<User, UserDTO>().ReverseMap();
 
-            CreateMap<CreateUserRequest, User>();
+            CreateMap<CreateUserRequest, User>()
+                .ForMember(dest => dest.Password, m => m.MapFrom(src => src.Password.ToSha256()));
 
             CreateMap<User, UserResponse>();
         }

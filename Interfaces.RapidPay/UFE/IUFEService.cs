@@ -2,6 +2,6 @@
 {
     public interface IUFEService
     {
-        decimal GetFee();
+        decimal GetFee(bool forceUpdate = false);
     }
 }

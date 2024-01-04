@@ -7,5 +7,6 @@
         public virtual string ValidUntil { get; set; }
         public virtual int CVC { get; set; }
         public virtual decimal Value { get; set; }
+        public virtual bool ForceUpdateFee { get; set; }
     }
 }
