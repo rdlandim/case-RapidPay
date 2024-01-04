@@ -19,6 +19,7 @@ docker compose up
 ```
 
 The application will be running on https://localhost:8001/swagger/index.html
+There is a Postman Collection added on the root of the project repository to make testing the api easier
 
 ## ⚙️ Testing
 
