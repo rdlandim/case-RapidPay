@@ -25,7 +25,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Renan Debortoli Landim\",\r\n  \"email\": \"rena2n@test.com\",\r\n  \"password\": \"123456\"\r\n}",
+					"raw": "{\r\n  \"name\": \"Renan Debortoli Landim\",\r\n  \"email\": {{email}},\r\n  \"password\": {{password}}\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -64,7 +64,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"user@test.com\",\r\n    \"password\": \"T3stus3R\"\r\n}",
+					"raw": "{\r\n    \"email\": {{email}},\r\n    \"password\": {{password}}\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -83,10 +83,10 @@
 					"script": {
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);\r",
-							"pm.collectionVariables.set(\"cardId\", jsonData.id);\r",
-							"pm.collectionVariables.set(\"cardNumber\", jsonData.number);\r",
+							"pm.collectionVariables.set(\"cardId\", jsonData.id.toString());\r",
+							"pm.collectionVariables.set(\"cardNumber\", jsonData.number.toString());\r",
 							"pm.collectionVariables.set(\"cardCVC\", jsonData.cvc);\r",
-							"pm.collectionVariables.set(\"validUntil\", jsonData.validUntil);"
+							"pm.collectionVariables.set(\"validUntil\", jsonData.validUntil.toString());"
 						],
 						"type": "text/javascript"
 					}
@@ -97,7 +97,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"userId\": 1\r\n}",
+					"raw": "{\r\n    \"userId\": {{userId}}\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -124,7 +124,25 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": 1,\r\n  \"creditCardNumber\": {{cardNumber}},\r\n  \"validUntil\": \"{{validUntil}}\",\r\n  \"cvc\": {{cardCVC}},\r\n  \"value\": {{$randomPrice}}\r\n}",
+					"raw": "{\r\n    \"userId\": {{userId}},\r\n    \"creditCardNumber\": {{cardNumber}},\r\n    \"validUntil\": \"{{validUntil}}\",\r\n    \"cvc\": {{cardCVC}},\r\n    \"value\": {{$randomPrice}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://localhost:8001/api/credit-cards/payment"
+			},
+			"response": []
+		},
+		{
+			"name": "MakePaymentForcingFeeToUpdate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": {{userId}},\r\n    \"creditCardNumber\": {{cardNumber}},\r\n    \"validUntil\": \"{{validUntil}}\",\r\n    \"cvc\": {{cardCVC}},\r\n    \"value\": {{$randomPrice}},\r\n    \"forceUpdateFee\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -182,6 +200,20 @@
 		{
 			"key": "validUntil",
 			"value": ""
+		},
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "email",
+			"value": "\"renan@test.com\"",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "\"123456\"",
+			"type": "string"
 		}
 	]
 }
